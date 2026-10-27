@@ -282,5 +282,20 @@ document.getElementById('resetPasswordBtn').addEventListener('click', async () =
   Забыли пароль?
 </button>
 <p id="resetPasswordMessage"></p>
+<section id="newPasswordPanel" style="display:none; padding:20px; max-width:400px; margin:20px auto;">
+  <h2>Новый пароль</h2>
+  <input
+    id="newPassword"
+    type="password"
+    placeholder="Введи новый пароль"
+    minlength="6"
+    required
+    style="display:block;width:100%;box-sizing:border-box;padding:12px;margin:10px 0;"
+  >
+  <button id="saveNewPasswordBtn" type="button">
+    Сохранить новый пароль
+  </button>
+  <p id="newPasswordMessage"></p>
+</section>
 </body>
 </html>
