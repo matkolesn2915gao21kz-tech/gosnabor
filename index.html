@@ -106,6 +106,47 @@
   <p id="authMessage" aria-live="polite"></p>
 </section>
 
+<script type="module">
+import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
 
+const supabase = createClient(
+  'https://vkgkvswvnnsegdhifzgl.supabase.co',
+  'sb_publishable_tWm74PjOc1sIkc798os2AA_plIvHBVD'
+);
+
+const emailInput = document.getElementById('email');
+const passwordInput = document.getElementById('password');
+const message = document.getElementById('authMessage');
+
+document.getElementById('registerBtn').addEventListener('click', async () => {
+  message.textContent = 'Регистрируем аккаунт...';
+
+  const { data, error } = await supabase.auth.signUp({
+    email: emailInput.value.trim(),
+    password: passwordInput.value
+  });
+
+  if (error) {
+    message.textContent = 'Ошибка: ' + error.message;
+  } else if (data.user && !data.session) {
+    message.textContent = 'Проверь почту и подтверди регистрацию!';
+  } else {
+    message.textContent = 'Регистрация успешна!';
+  }
+});
+
+document.getElementById('loginBtn').addEventListener('click', async () => {
+  message.textContent = 'Выполняем вход...';
+
+  const { error } = await supabase.auth.signInWithPassword({
+    email: emailInput.value.trim(),
+    password: passwordInput.value
+  });
+
+  message.textContent = error
+    ? 'Ошибка входа: ' + error.message
+    : 'Ты вошёл в Gosnabor!';
+});
+</script>
 </body>
 </html>
