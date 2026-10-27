@@ -189,5 +189,19 @@ async function loadOrganizations() {
 
 loadOrganizations();
 </script>
+<section id="adminPanel" style="display:none; max-width:700px; margin:30px auto; padding:20px; border:1px solid #444; border-radius:12px;">
+  <h2>Панель администратора</h2>
+  <p>Управление организациями Gosnabor</p>
+
+  <form id="orgForm">
+    <input id="orgName" type="text" placeholder="Название организации" required>
+    <textarea id="orgDescription" placeholder="Описание организации"></textarea>
+    <textarea id="orgRequirements" placeholder="Требования к участникам"></textarea>
+    <button type="submit" id="saveOrgBtn">Добавить организацию</button>
+    <button type="button" id="cancelEditBtn" style="display:none;">Отмена</button>
+  </form>
+
+  <p id="adminMessage"></p>
+</section>
 </body>
 </html>
