@@ -243,7 +243,26 @@ document.getElementById('orgForm').addEventListener('submit', async (event) => {
 });
 
 setupAdminPanel();
-loadOrganizations();
+document.getElementById('resetPasswordBtn').addEventListener('click', async () => {
+  const email = document.getElementById('email').value.trim();
+  const message = document.getElementById('resetPasswordMessage');
+
+  if (!email) {
+    message.textContent = 'Сначала введи свою почту!';
+    return;
+  }
+
+  message.textContent = 'Отправляем письмо...';
+
+  const { error } = await supabase.auth.resetPasswordForEmail(email, {
+    redirectTo: 'https://matkolesn2915gao21kz-tech.github.io/gosnabor/'
+  });
+
+  message.textContent = error
+    ? 'Ошибка: ' + error.message
+    : 'Письмо отправлено! Проверь почту и папку «Спам».';
+});
+  loadOrganizations();
 </script>
 <section id="adminPanel" style="display:none; max-width:700px; margin:30px auto; padding:20px; border:1px solid #444; border-radius:12px;">
   <h2>Панель администратора</h2>
