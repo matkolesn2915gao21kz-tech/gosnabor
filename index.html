@@ -186,7 +186,63 @@ async function loadOrganizations() {
     cards.append(card);
   }
 }
+async function setupAdminPanel() {
+  const { data: { user } } = await supabase.auth.getUser();
 
+  if (!user) return;
+
+  const { data, error } = await supabase
+    .from('admins')
+    .select('user_id')
+    .eq('user_id', user.id)
+    .maybeSingle();
+
+  if (error || !data) return;
+
+  document.getElementById('adminPanel').style.display = 'block';
+}
+
+document.getElementById('orgForm').addEventListener('submit', async (event) => {
+  event.preventDefault();
+
+  const message = document.getElementById('adminMessage');
+  message.textContent = 'Добавляем организацию...';
+
+  const { data: { user } } = await supabase.auth.getUser();
+
+  if (!user) {
+    message.textContent = 'Сначала войди в аккаунт!';
+    return;
+  }
+
+  const { data: admin } = await supabase
+    .from('admins')
+    .select('user_id')
+    .eq('user_id', user.id)
+    .maybeSingle();
+
+  if (!admin) {
+    message.textContent = 'Нет прав администратора.';
+    return;
+  }
+
+  const { error } = await supabase.from('organizations').insert({
+    name: document.getElementById('orgName').value.trim(),
+    description: document.getElementById('orgDescription').value.trim(),
+    requirements: document.getElementById('orgRequirements').value.trim()
+  });
+
+  if (error) {
+    message.textContent = 'Ошибка: ' + error.message;
+    return;
+  }
+
+  message.textContent = 'Организация добавлена! 🎉';
+  document.getElementById('orgForm').reset();
+  await loadOrganizations();
+});
+
+setupAdminPanel();
 loadOrganizations();
 </script>
 <section id="adminPanel" style="display:none; max-width:700px; margin:30px auto; padding:20px; border:1px solid #444; border-radius:12px;">
