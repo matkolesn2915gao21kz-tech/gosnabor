@@ -1,329 +1,441 @@
-
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Gosnabor — набор в организации</title>
-  <style>
-    * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #07111f;
-      color: #f1f5f9;
-    }
-    header {
-      padding: 22px 6%;
-      background: #0b1b31;
-      border-bottom: 1px solid #203754;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 12px;
-    }
-    .logo { font-size: 26px; font-weight: bold; color: #60a5fa; }
-    nav a {
-      color: #dbeafe;
-      text-decoration: none;
-      margin-left: 16px;
-    }
-    .hero {
-      text-align: center;
-      padding: 75px 20px 55px;
-      background: linear-gradient(135deg, #102a4c, #07111f);
-    }
-    .hero h1 { font-size: clamp(32px, 7vw, 54px); margin: 0 0 18px; }
-    .hero p { color: #b6c8df; line-height: 1.6; }
-    .button {
-      display: inline-block;
-      margin-top: 18px;
-      padding: 13px 22px;
-      border-radius: 9px;
-      background: #2563eb;
-      color: white;
-      text-decoration: none;
-      font-weight: bold;
-    }
-    main { max-width: 1000px; margin: auto; padding: 35px 18px; }
-    .section-title { font-size: 28px; margin-bottom: 20px; }
-    .cards {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-      gap: 18px;
-    }
-    .card {
-      background: #102039;
-      border: 1px solid #243b59;
-      border-radius: 14px;
-      padding: 22px;
-    }
-    .card h3 { color: #93c5fd; }
-    .card p { color: #cbd5e1; line-height: 1.6; }
-    .empty { color: #a9bad0; }
-    footer {
-      text-align: center;
-      padding: 25px;
-      color: #94a3b8;
-      border-top: 1px solid #203754;
-    }
-  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#07111f">
+<title>Gosnabor — найди свою команду</title>
+<style>
+:root{color-scheme:dark;--bg:#07111f;--panel:#10213a;--panel2:#142b49;--line:#294464;--blue:#347df5;--cyan:#69c8ff;--text:#f3f7ff;--muted:#a9bad0;--green:#39ce91;--red:#ff7180}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 50% -15%,#173d70 0,transparent 43%),var(--bg);color:var(--text);font:15px system-ui,Arial,sans-serif;min-height:100vh}
+button,input,textarea{font:inherit}button{cursor:pointer}header{position:sticky;top:0;z-index:5;background:#08182bed;backdrop-filter:blur(12px);border-bottom:1px solid var(--line);padding:13px max(14px,calc((100% - 1120px)/2));display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.logo{font-size:22px;font-weight:950;letter-spacing:1px;color:var(--cyan)}nav{display:flex;gap:6px;flex-wrap:wrap}nav button,.ghost{background:transparent;color:var(--muted);border:1px solid transparent;padding:9px 11px;border-radius:10px}nav button:hover,.ghost:hover{border-color:var(--line);color:white}
+.wrap{max-width:1120px;margin:auto;padding:22px 16px}.hero{text-align:center;padding:62px 16px 48px}.eyebrow{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--cyan);font-weight:800}.hero h1{font-size:clamp(34px,7vw,60px);line-height:1.05;margin:15px 0}.hero p{max-width:650px;margin:auto;color:var(--muted);line-height:1.7}.hero-actions,.actions{display:flex;justify-content:center;gap:9px;flex-wrap:wrap;margin-top:22px}
+.primary,.secondary,.danger{border:0;border-radius:11px;padding:11px 16px;font-weight:800;color:white}.primary{background:linear-gradient(135deg,#286ee8,#469cff)}.secondary{background:#294767}.danger{background:#873544}.primary:disabled,.secondary:disabled{opacity:.5;cursor:not-allowed}
+.section-head{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin:12px 0 17px}.section-head h2{margin:0;font-size:24px}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(245px,1fr));gap:15px}.card,.panel{background:linear-gradient(155deg,#142b49,#0d1b30);border:1px solid var(--line);border-radius:16px;padding:18px;box-shadow:0 12px 32px #0002}.card h3{color:#b8dcff;margin:8px 0}.card p{color:#c7d5e6;line-height:1.6;white-space:pre-wrap}.tag{display:inline-block;background:#173a62;color:#b8dcff;border-radius:30px;padding:5px 9px;font-size:12px}.muted{color:var(--muted)}.hidden{display:none!important}
+input,textarea{display:block;width:100%;padding:12px;margin:7px 0 14px;border:1px solid #385574;border-radius:10px;background:#08182a;color:white}textarea{min-height:90px;resize:vertical}label{font-size:13px;color:#c9d8e9}.notice{padding:11px 13px;border-radius:10px;background:#112d4c;color:#cce5ff;margin:12px 0;line-height:1.5;overflow-wrap:anywhere}.notice.error{background:#48232e;color:#ffd5dc}.notice.success{background:#123d33;color:#caffea}.auth{max-width:480px;margin:20px auto}.auth-actions{display:flex;gap:8px;flex-wrap:wrap}.auth-actions button{flex:1}.admin-list{display:grid;gap:10px}.admin-item{padding:13px;border:1px solid var(--line);border-radius:11px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}.admin-item .actions{margin:0;justify-content:flex-start}.footer{text-align:center;color:#8198b5;border-top:1px solid var(--line);padding:28px 12px;margin-top:34px;font-size:13px}
+@media(max-width:600px){header{position:static;justify-content:center}.logo{width:100%;text-align:center}nav{justify-content:center}nav button{padding:8px}.hero{padding:42px 14px 34px}.wrap{padding:17px 12px}.section-head h2{font-size:21px}}
+</style>
 </head>
 <body>
-  <header>
-    <div class="logo">GOSNABOR</div>
-    <nav><a href="#home">Главная</a><a href="#organizations">Организации</a></nav>
-  </header>
+<header>
+  <div class="logo">GOSNABOR</div>
+  <nav>
+    <button onclick="go('home')">Главная</button>
+    <button onclick="go('organizations')">Организации</button>
+    <button onclick="go('account')">Аккаунт</button>
+    <button id="adminNav" class="hidden" onclick="go('admin')">Админ-панель</button>
+    <button onclick="go('chat')">Чат</button>
+  </nav>
+</header>
 
-  <section class="hero" id="home">
-    <h1>Найди свою организацию</h1>
-    <p>Gosnabor — место, где можно найти команду и подать заявку на вступление.</p>
-    <a class="button" href="#organizations">Посмотреть организации</a>
+<section class="hero" id="home">
+  <div class="eyebrow">Твоя команда начинается здесь</div>
+  <h1>Найди свою организацию</h1>
+  <p>Изучай игровые сообщества, выбирай подходящую команду и отправляй заявку на вступление. Здесь начинается твоя следующая игровая история.</p>
+  <div class="hero-actions">
+    <button class="primary" onclick="go('organizations')">Смотреть организации</button>
+    <button class="secondary" onclick="go('account')">Войти или зарегистрироваться</button>
+  </div>
+</section>
+
+<main class="wrap">
+  <section id="organizations">
+    <div class="section-head"><h2>Организации</h2><button class="ghost" onclick="loadOrganizations()">↻ Обновить</button></div>
+    <div id="orgStatus" class="notice">Загружаем организации…</div>
+    <div class="grid" id="orgCards"></div>
   </section>
 
-  <main id="organizations">
-    <h2 class="section-title">Организации</h2>
-    <div class="cards">
-      <article class="card">
-        <h3>Добро пожаловать!</h3>
-        <p>Здесь будут отображаться организации, открытые для набора участников.</p>
-        <p class="empty">Скоро появятся первые организации.</p>
-      </article>
+  <section id="account" class="hidden">
+    <div class="panel auth">
+      <h2>Аккаунт Gosnabor</h2>
+      <p class="muted">Войди или создай аккаунт, чтобы отправлять заявки и следить за их статусом.</p>
+      <label for="email">Электронная почта</label>
+      <input id="email" type="email" autocomplete="email" placeholder="name@example.com">
+      <label for="password">Пароль</label>
+      <input id="password" type="password" autocomplete="current-password" placeholder="Минимум 6 символов">
+      <div class="auth-actions">
+        <button class="primary" id="registerBtn">Регистрация</button>
+        <button class="secondary" id="loginBtn">Войти</button>
+        <button class="ghost" id="resetBtn">Забыли пароль?</button>
+      </div>
+      <div id="authMessage" class="notice" aria-live="polite">Ты пока не вошёл.</div>
+      <button class="danger hidden" id="logoutBtn">Выйти из аккаунта</button>
+      <div id="newPasswordPanel" class="hidden">
+        <h3>Новый пароль</h3>
+        <input id="newPassword" type="password" minlength="6" placeholder="Новый пароль">
+        <button class="primary" id="savePasswordBtn">Сохранить пароль</button>
+      </div>
     </div>
-  </main>
+    <div class="panel" style="max-width:720px;margin:18px auto">
+      <h3>Мои заявки</h3>
+      <div id="myApplications" class="muted">Войди, чтобы посмотреть свои заявки.</div>
+    </div>
+  </section>
 
-  
- <footer>© 2026 Gosnabor · Сайт находится в разработке</footer>
-<section style="max-width:420px;margin:30px auto;padding:24px;background:#102039;color:white;border-radius:14px;font-family:Arial,sans-serif">
-  <h2>Gosnabor — аккаунт</h2>
-  <label for="email">Электронная почта</label>
-  <input id="email" type="email" placeholder="name@example.com" style="display:block;width:100%;padding:12px;margin:8px 0 16px;border-radius:8px;box-sizing:border-box">
-  <label for="password">Пароль</label>
-  <input id="password" type="password" placeholder="Не менее 6 символов" style="display:block;width:100%;padding:12px;margin:8px 0 16px;border-radius:8px;box-sizing:border-box">
-  <button type="button" id="registerBtn" style="padding:12px;background:#2563eb;color:white;border:0;border-radius:8px">Зарегистрироваться</button>
-  <button type="button" id="loginBtn" style="padding:12px;background:#334155;color:white;border:0;border-radius:8px;margin-top:8px">Войти</button>
-  <p id="authMessage" aria-live="polite"></p>
-</section>
+  <section id="admin" class="hidden">
+    <div class="section-head"><h2>Панель администратора</h2><span class="tag">Главный администратор</span></div>
+    <div class="panel">
+      <h3 id="formTitle">Добавить организацию</h3>
+      <form id="orgForm">
+        <input type="hidden" id="editId">
+        <label for="orgName">Название организации</label>
+        <input id="orgName" required maxlength="80" placeholder="Например, Северный легион">
+        <label for="orgDescription">Описание</label>
+        <textarea id="orgDescription" maxlength="1500" placeholder="Расскажи об организации"></textarea>
+        <label for="orgRequirements">Требования к участникам</label>
+        <textarea id="orgRequirements" maxlength="1000" placeholder="Какие требования?"></textarea>
+        <div class="actions" style="justify-content:flex-start">
+          <button class="primary" type="submit" id="saveOrgBtn">Добавить организацию</button>
+          <button class="secondary hidden" type="button" id="cancelEditBtn">Отмена</button>
+        </div>
+      </form>
+      <div id="adminMessage" class="notice">Управление организациями и заявками.</div>
+    </div>
+    <div class="panel" style="margin-top:15px">
+      <h3>Управление организациями</h3>
+      <div id="adminOrganizations" class="admin-list muted">Загрузка…</div>
+    </div>
+    <div class="panel" style="margin-top:15px">
+      <h3>Заявки участников</h3>
+      <div id="adminApplications" class="admin-list muted">Загрузка…</div>
+    </div>
+  </section>
+
+  <section id="chat" class="hidden">
+    <div class="section-head"><h2>Общий чат Gosnabor</h2></div>
+    <div class="panel">
+      <p class="muted">Чат подключим отдельным безопасным шагом после создания таблицы сообщений в Supabase. Остальные разделы сайта работают независимо от него.</p>
+      <div class="notice">Чат пока не активирован — существующие таблицы и данные не затрагиваются.</div>
+    </div>
+  </section>
+</main>
+<footer class="footer">© 2026 Gosnabor · Игровые сообщества и набор участников</footer>
 
 <script type="module">
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
 
-const supabase = createClient(
-  'https://vkgkvswvnnsegdhifzgl.supabase.co',
-  'sb_publishable_tWm74PjOc1sIkc798os2AA_plIvHBVD'
-);
+const SUPABASE_URL = 'https://vkgkvswvnnsegdhifzgl.supabase.co';
+const SUPABASE_KEY = 'sb_publishable_tWm74PjOc1sIkc798os2AA_plIvHBVD';
+const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
+const $ = id => document.getElementById(id);
+let currentUser = null;
+let isAdmin = false;
+let organizations = [];
 
-const emailInput = document.getElementById('email');
-const passwordInput = document.getElementById('password');
-const message = document.getElementById('authMessage');
-
-document.getElementById('registerBtn').addEventListener('click', async () => {
-  message.textContent = 'Регистрируем аккаунт...';
-
-  const { data, error } = await supabase.auth.signUp({
-    email: emailInput.value.trim(),
-    password: passwordInput.value
-  });
-
-  if (error) {
-    message.textContent = 'Ошибка: ' + error.message;
-  } else if (data.user && !data.session) {
-    message.textContent = 'Проверь почту и подтверди регистрацию!';
-  } else {
-    message.textContent = 'Регистрация успешна!';
+function setNotice(id, message, type='') {
+  const el = $(id);
+  el.textContent = message;
+  el.className = 'notice' + (type ? ' ' + type : '');
+}
+function esc(value) {
+  return String(value ?? '').replace(/[&<>"']/g, ch => ({
+    '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;'
+  })[ch]);
+}
+window.go = id => {
+  document.querySelectorAll('main>section').forEach(section => section.classList.add('hidden'));
+  $(id).classList.remove('hidden');
+  if (id === 'account') loadMyApplications();
+  if (id === 'admin' && isAdmin) {
+    loadAdminOrganizations();
+    loadAdminApplications();
   }
-});
+  window.scrollTo({top:0, behavior:'smooth'});
+};
 
-document.getElementById('loginBtn').addEventListener('click', async () => {
-  message.textContent = 'Выполняем вход...';
+async function refreshSession() {
+  const { data, error } = await supabase.auth.getUser();
+  currentUser = error ? null : (data.user || null);
+  $('logoutBtn').classList.toggle('hidden', !currentUser);
+  setNotice('authMessage', currentUser ? 'Выполнен вход: ' + currentUser.email : 'Ты пока не вошёл.');
+  await checkAdmin();
+}
+async function checkAdmin() {
+  isAdmin = false;
+  if (currentUser) {
+    const { data, error } = await supabase
+      .from('admins').select('user_id').eq('user_id', currentUser.id).maybeSingle();
+    isAdmin = !error && !!data;
+  }
+  $('adminNav').classList.toggle('hidden', !isAdmin);
+  if (isAdmin) {
+    await loadAdminOrganizations();
+    await loadAdminApplications();
+  } else {
+    $('admin').classList.add('hidden');
+  }
+}
 
-  const { error } = await supabase.auth.signInWithPassword({
-    email: emailInput.value.trim(),
-    password: passwordInput.value
-  });
-
-  message.textContent = error
-    ? 'Ошибка входа: ' + error.message
-    : 'Ты вошёл в Gosnabor!';
-});
 async function loadOrganizations() {
-  const cards = document.querySelector('.cards');
-
+  setNotice('orgStatus', 'Загружаем организации…');
   const { data, error } = await supabase
     .from('organizations')
-    .select('id, name, description, requirements')
-    .order('created_at', { ascending: false });
-
+    .select('id,name,description,requirements,created_at')
+    .order('created_at', {ascending:false});
   if (error) {
-    cards.textContent = 'Не удалось загрузить организации. Попробуй обновить страницу.';
+    setNotice('orgStatus', 'Не удалось загрузить организации: ' + error.message, 'error');
     return;
   }
-
-  cards.replaceChildren();
-
-  if (!data || data.length === 0) {
-    cards.textContent = 'Пока организаций нет. Скоро они появятся!';
+  organizations = data || [];
+  $('orgCards').replaceChildren();
+  if (!organizations.length) {
+    setNotice('orgStatus', 'Пока организаций нет. Администратор сможет добавить первую.');
     return;
   }
-
-  for (const org of data) {
+  $('orgStatus').classList.add('hidden');
+  for (const org of organizations) {
     const card = document.createElement('article');
     card.className = 'card';
-
-    const title = document.createElement('h3');
-    title.textContent = org.name;
-
-    const description = document.createElement('p');
-    description.textContent = org.description || 'Описание пока не добавлено.';
-
-    const requirements = document.createElement('p');
-    requirements.textContent = org.requirements
-      ? 'Требования: ' + org.requirements
-      : '';
-
-    card.append(title, description, requirements);
-    cards.append(card);
+    card.innerHTML = `
+      <span class="tag">Игровая организация</span>
+      <h3>${esc(org.name)}</h3>
+      <p>${esc(org.description || 'Описание пока не добавлено.')}</p>
+      <p><b>Требования:</b> ${esc(org.requirements || 'Не указаны')}</p>
+      <div class="actions"><button class="primary applyBtn">Подать заявку</button></div>`;
+    card.querySelector('.applyBtn').addEventListener('click', () => applyToOrganization(org));
+    $('orgCards').append(card);
   }
 }
-async function setupAdminPanel() {
-  const { data: { user } } = await supabase.auth.getUser();
 
-  if (!user) return;
-
-  const { data, error } = await supabase
-    .from('admins')
-    .select('user_id')
-    .eq('user_id', user.id)
-    .maybeSingle();
-
-  if (error || !data) return;
-
-  document.getElementById('adminPanel').style.display = 'block';
-}
-
-document.getElementById('orgForm').addEventListener('submit', async (event) => {
-  event.preventDefault();
-
-  const message = document.getElementById('adminMessage');
-  message.textContent = 'Добавляем организацию...';
-
-  const { data: { user } } = await supabase.auth.getUser();
-
-  if (!user) {
-    message.textContent = 'Сначала войди в аккаунт!';
+async function applyToOrganization(org) {
+  if (!currentUser) {
+    go('account');
+    setNotice('authMessage', 'Сначала войди в аккаунт, затем подай заявку.');
     return;
   }
-
-  const { data: admin } = await supabase
-    .from('admins')
-    .select('user_id')
-    .eq('user_id', user.id)
-    .maybeSingle();
-
-  if (!admin) {
-    message.textContent = 'Нет прав администратора.';
+  const message = prompt('Коротко расскажи, почему хочешь вступить:');
+  if (message === null) return;
+  if (!message.trim()) {
+    alert('Напиши пару слов о себе.');
     return;
   }
-
-  const { error } = await supabase.from('organizations').insert({
-    name: document.getElementById('orgName').value.trim(),
-    description: document.getElementById('orgDescription').value.trim(),
-    requirements: document.getElementById('orgRequirements').value.trim()
+  const { error } = await supabase.from('applications').insert({
+    organization_id: org.id,
+    user_id: currentUser.id,
+    message: message.trim(),
+    status: 'pending'
   });
-
   if (error) {
-    message.textContent = 'Ошибка: ' + error.message;
+    alert('Не удалось отправить заявку: ' + error.message);
+  } else {
+    alert('Заявка отправлена!');
+    await loadMyApplications();
+  }
+}
+
+async function loadMyApplications() {
+  if (!currentUser) {
+    $('myApplications').textContent = 'Войди, чтобы посмотреть свои заявки.';
     return;
   }
+  const { data, error } = await supabase
+    .from('applications')
+    .select('id,organization_id,message,status,created_at')
+    .eq('user_id', currentUser.id)
+    .order('created_at', {ascending:false});
+  if (error) {
+    $('myApplications').textContent = 'Не удалось загрузить заявки: ' + error.message;
+    return;
+  }
+  if (!data?.length) {
+    $('myApplications').textContent = 'У тебя пока нет заявок.';
+    return;
+  }
+  const names = new Map(organizations.map(org => [org.id, org.name]));
+  $('myApplications').innerHTML = data.map(app => `
+    <div class="admin-item">
+      <div><b>${esc(names.get(app.organization_id) || 'Организация')}</b>
+      <div class="muted">${esc(app.message)}</div></div>
+      <span class="tag">${esc(app.status || 'pending')}</span>
+    </div>`).join('');
+}
 
-  message.textContent = 'Организация добавлена! 🎉';
-  document.getElementById('orgForm').reset();
+async function loadAdminOrganizations() {
+  if (!isAdmin) return;
+  const el = $('adminOrganizations');
+  const { data, error } = await supabase
+    .from('organizations').select('id,name,description,requirements,created_at')
+    .order('created_at', {ascending:false});
+  if (error) {
+    el.textContent = 'Ошибка загрузки: ' + error.message;
+    return;
+  }
+  organizations = data || [];
+  el.replaceChildren();
+  for (const org of organizations) {
+    const row = document.createElement('div');
+    row.className = 'admin-item';
+    row.innerHTML = `<div><b>${esc(org.name)}</b><div class="muted">${esc(org.description || 'Без описания')}</div></div>
+      <div class="actions"><button class="secondary edit">Изменить</button><button class="danger delete">Удалить</button></div>`;
+    row.querySelector('.edit').addEventListener('click', () => editOrganization(org.id));
+    row.querySelector('.delete').addEventListener('click', () => deleteOrganization(org.id));
+    el.append(row);
+  }
+  if (!data?.length) el.textContent = 'Организаций пока нет.';
+}
+function editOrganization(id) {
+  const org = organizations.find(item => item.id === id);
+  if (!org) return;
+  $('editId').value = org.id;
+  $('orgName').value = org.name || '';
+  $('orgDescription').value = org.description || '';
+  $('orgRequirements').value = org.requirements || '';
+  $('formTitle').textContent = 'Редактировать организацию';
+  $('saveOrgBtn').textContent = 'Сохранить изменения';
+  $('cancelEditBtn').classList.remove('hidden');
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+function resetOrganizationForm() {
+  $('orgForm').reset();
+  $('editId').value = '';
+  $('formTitle').textContent = 'Добавить организацию';
+  $('saveOrgBtn').textContent = 'Добавить организацию';
+  $('cancelEditBtn').classList.add('hidden');
+}
+async function deleteOrganization(id) {
+  if (!isAdmin) return;
+  if (!confirm('Точно удалить эту организацию? Сначала убедись, что она больше не нужна.')) return;
+  const { error } = await supabase.from('organizations').delete().eq('id', id);
+  if (error) {
+    setNotice('adminMessage', 'Не удалось удалить: ' + error.message, 'error');
+    return;
+  }
+  setNotice('adminMessage', 'Организация удалена.', 'success');
   await loadOrganizations();
-});
-
-setupAdminPanel();
-document.getElementById('resetPasswordBtn').addEventListener('click', async () => {
-  const email = document.getElementById('email').value.trim();
-  const message = document.getElementById('resetPasswordMessage');
-
-  if (!email) {
-    message.textContent = 'Сначала введи свою почту!';
+  await loadAdminOrganizations();
+}
+$('orgForm').addEventListener('submit', async event => {
+  event.preventDefault();
+  if (!isAdmin) {
+    setNotice('adminMessage', 'Нет прав администратора.', 'error');
     return;
   }
+  const id = $('editId').value;
+  const payload = {
+    name: $('orgName').value.trim(),
+    description: $('orgDescription').value.trim(),
+    requirements: $('orgRequirements').value.trim()
+  };
+  if (!payload.name) {
+    setNotice('adminMessage', 'Введи название организации.', 'error');
+    return;
+  }
+  const result = id
+    ? await supabase.from('organizations').update(payload).eq('id', id)
+    : await supabase.from('organizations').insert(payload);
+  if (result.error) {
+    setNotice('adminMessage', 'Ошибка: ' + result.error.message, 'error');
+    return;
+  }
+  setNotice('adminMessage', id ? 'Изменения сохранены!' : 'Организация добавлена!', 'success');
+  resetOrganizationForm();
+  await loadOrganizations();
+  await loadAdminOrganizations();
+});
+$('cancelEditBtn').addEventListener('click', resetOrganizationForm);
 
-  message.textContent = 'Отправляем письмо...';
+async function loadAdminApplications() {
+  if (!isAdmin) return;
+  const el = $('adminApplications');
+  const { data, error } = await supabase
+    .from('applications')
+    .select('id,organization_id,user_id,message,status,created_at')
+    .order('created_at', {ascending:false});
+  if (error) {
+    el.textContent = 'Ошибка загрузки заявок: ' + error.message;
+    return;
+  }
+  const names = new Map(organizations.map(org => [org.id, org.name]));
+  el.replaceChildren();
+  for (const app of data || []) {
+    const row = document.createElement('div');
+    row.className = 'admin-item';
+    row.innerHTML = `<div><b>${esc(names.get(app.organization_id) || 'Организация')}</b>
+      <div class="muted">${esc(app.message)}</div><span class="tag">Статус: ${esc(app.status || 'pending')}</span></div>
+      <div class="actions"><button class="primary accept">Принять</button><button class="danger reject">Отклонить</button></div>`;
+    row.querySelector('.accept').addEventListener('click', () => updateApplicationStatus(app.id, 'accepted'));
+    row.querySelector('.reject').addEventListener('click', () => updateApplicationStatus(app.id, 'rejected'));
+    el.append(row);
+  }
+  if (!data?.length) el.textContent = 'Заявок пока нет.';
+}
+async function updateApplicationStatus(id, status) {
+  if (!isAdmin) return;
+  const { error } = await supabase.from('applications').update({status}).eq('id', id);
+  if (error) {
+    setNotice('adminMessage', 'Не удалось изменить статус заявки: ' + error.message, 'error');
+    return;
+  }
+  setNotice('adminMessage', 'Статус заявки обновлён.', 'success');
+  await loadAdminApplications();
+  await loadMyApplications();
+}
 
+$('registerBtn').addEventListener('click', async () => {
+  const email = $('email').value.trim();
+  const password = $('password').value;
+  if (!email || password.length < 6) {
+    setNotice('authMessage', 'Введи почту и пароль минимум из 6 символов.', 'error');
+    return;
+  }
+  const { data, error } = await supabase.auth.signUp({email, password});
+  if (error) {
+    setNotice('authMessage', 'Ошибка регистрации: ' + error.message, 'error');
+  } else {
+    setNotice('authMessage', data.session ? 'Регистрация успешна!' : 'Проверь почту и подтверди регистрацию.', 'success');
+    await refreshSession();
+  }
+});
+$('loginBtn').addEventListener('click', async () => {
+  const { data, error } = await supabase.auth.signInWithPassword({
+    email: $('email').value.trim(),
+    password: $('password').value
+  });
+  if (error) {
+    setNotice('authMessage', 'Ошибка входа: ' + error.message, 'error');
+    return;
+  }
+  currentUser = data.user;
+  setNotice('authMessage', 'Ты вошёл в Gosnabor!', 'success');
+  await refreshSession();
+  await loadMyApplications();
+});
+$('logoutBtn').addEventListener('click', async () => {
+  const { error } = await supabase.auth.signOut();
+  if (error) {
+    setNotice('authMessage', 'Не удалось выйти: ' + error.message, 'error');
+    return;
+  }
+  currentUser = null;
+  await refreshSession();
+  setNotice('authMessage', 'Ты вышел из аккаунта.');
+});
+$('resetBtn').addEventListener('click', async () => {
+  const email = $('email').value.trim();
+  if (!email) {
+    setNotice('authMessage', 'Сначала введи электронную почту.', 'error');
+    return;
+  }
   const { error } = await supabase.auth.resetPasswordForEmail(email, {
     redirectTo: 'https://matkolesn2915gao21kz-tech.github.io/gosnabor/'
   });
-
-  message.textContent = error
-    ? 'Ошибка: ' + error.message
-    : 'Письмо отправлено! Проверь почту и папку «Спам».';
+  setNotice('authMessage', error ? 'Ошибка: ' + error.message : 'Если почта зарегистрирована, письмо для восстановления отправлено. Проверь входящие и спам.', error ? 'error' : 'success');
 });
-  const newPasswordPanel = document.getElementById('newPasswordPanel');
-
-if (window.location.hash.includes('type=recovery')) {
-  newPasswordPanel.style.display = 'block';
-}
-
-document.getElementById('saveNewPasswordBtn').addEventListener('click', async () => {
-  const password = document.getElementById('newPassword').value;
-  const message = document.getElementById('newPasswordMessage');
-
+if (location.hash.includes('type=recovery')) $('newPasswordPanel').classList.remove('hidden');
+$('savePasswordBtn').addEventListener('click', async () => {
+  const password = $('newPassword').value;
   if (password.length < 6) {
-    message.textContent = 'Пароль должен содержать минимум 6 символов.';
+    setNotice('authMessage', 'Пароль должен содержать минимум 6 символов.', 'error');
     return;
   }
-
-  message.textContent = 'Сохраняем пароль...';
-
-  const { error } = await supabase.auth.updateUser({
-    password: password
-  });
-
-  if (error) {
-    message.textContent = 'Ошибка: ' + error.message;
-  } else {
-    message.textContent = 'Пароль изменён! Теперь можешь войти. 🎉';
-    document.getElementById('newPassword').value = '';
-  }
+  const { error } = await supabase.auth.updateUser({password});
+  setNotice('authMessage', error ? 'Ошибка: ' + error.message : 'Пароль успешно изменён!', error ? 'error' : 'success');
+  if (!error) $('newPassword').value = '';
 });
-  loadOrganizations();
+
+await refreshSession();
+await loadOrganizations();
 </script>
-<section id="adminPanel" style="display:none; max-width:700px; margin:30px auto; padding:20px; border:1px solid #444; border-radius:12px;">
-  <h2>Панель администратора</h2>
-  <p>Управление организациями Gosnabor</p>
-
-  <form id="orgForm">
-    <input id="orgName" type="text" placeholder="Название организации" required>
-    <textarea id="orgDescription" placeholder="Описание организации"></textarea>
-    <textarea id="orgRequirements" placeholder="Требования к участникам"></textarea>
-    <button type="submit" id="saveOrgBtn">Добавить организацию</button>
-    <button type="button" id="cancelEditBtn" style="display:none;">Отмена</button>
-  </form>
-
-  <p id="adminMessage"></p>
-</section>
-<button id="resetPasswordBtn" type="button">
-  Забыли пароль?
-</button>
-<p id="resetPasswordMessage"></p>
-<section id="newPasswordPanel" style="display:none; padding:20px; max-width:400px; margin:20px auto;">
-  <h2>Новый пароль</h2>
-  <input
-    id="newPassword"
-    type="password"
-    placeholder="Введи новый пароль"
-    minlength="6"
-    required
-    style="display:block;width:100%;box-sizing:border-box;padding:12px;margin:10px 0;"
-  >
-  <button id="saveNewPasswordBtn" type="button">
-    Сохранить новый пароль
-  </button>
-  <p id="newPasswordMessage"></p>
-</section>
 </body>
 </html>
